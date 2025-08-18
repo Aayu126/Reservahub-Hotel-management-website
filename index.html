@@ -23,47 +23,47 @@
   </head>
 
   <body class="bg-gray-50">
-    <!-- Main Page Content -->
+    <!-- Main Page Content: Centered Modal for Role Selection -->
     <div class="flex items-center justify-center h-screen">
-      <div class="bg-white p-8 rounded-lg shadow-lg max-w-sm w-full">
-        <h1 class="text-2xl font-semibold text-center mb-6">Welcome to Reservahub</h1>
+      <div class="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
+        <h1 class="text-3xl font-bold text-center mb-6">Welcome to Reservahub</h1>
 
-        <!-- Login Options -->
+        <!-- Role Selection Form -->
+        <p class="text-center text-lg text-gray-600 mb-4">Please choose your role to proceed:</p>
+
         <div class="space-y-4">
-          <p class="text-center text-gray-600">Please choose your role:</p>
+          <!-- Admin Login -->
+          <button onclick="redirectToDashboard('admin')" class="w-full bg-blue-500 text-white py-3 rounded-md shadow-md hover:bg-blue-600 focus:outline-none">Admin Login</button>
 
-          <!-- Buttons for Admin, Staff, and Customer -->
-          <div class="space-y-4">
-            <button onclick="redirectToDashboard('admin')" class="w-full bg-blue-500 text-white py-3 rounded-md shadow-md hover:bg-blue-600 focus:outline-none">Admin Login</button>
-            <button onclick="redirectToDashboard('staff')" class="w-full bg-green-500 text-white py-3 rounded-md shadow-md hover:bg-green-600 focus:outline-none">Staff Login</button>
-            <button onclick="redirectToDashboard('customer')" class="w-full bg-yellow-500 text-white py-3 rounded-md shadow-md hover:bg-yellow-600 focus:outline-none">Customer Login</button>
-          </div>
+          <!-- Staff Login -->
+          <button onclick="redirectToDashboard('staff')" class="w-full bg-green-500 text-white py-3 rounded-md shadow-md hover:bg-green-600 focus:outline-none">Staff Login</button>
+
+          <!-- Customer Login -->
+          <button onclick="redirectToDashboard('customer')" class="w-full bg-yellow-500 text-white py-3 rounded-md shadow-md hover:bg-yellow-600 focus:outline-none">Customer Login</button>
         </div>
       </div>
     </div>
 
-    <script>
-      function redirectToDashboard(role) {
-        if(role === 'admin') {
-          alert("Redirecting to Admin Dashboard...");
-          // Redirect to Admin dashboard
-          window.location.href = "/admin-dashboard.html"; // Or your existing route
-        } else if(role === 'staff') {
-          alert("Redirecting to Staff Dashboard...");
-          // Redirect to Staff dashboard
-          window.location.href = "/staff-dashboard.html"; // Or your existing route
-        } else if(role === 'customer') {
-          alert("Redirecting to Customer Dashboard...");
-          // Redirect to Customer dashboard
-          window.location.href = "/customer-dashboard.html"; // Or your existing route
-        }
-      }
-    </script>
-
-    <!-- React App root element -->
+    <!-- React App root element for rendering -->
     <div id="root"></div>
 
     <!-- Main Script for React App -->
     <script type="module" src="/src/main.tsx"></script>
+
+    <!-- Redirect Script for Role-Based Navigation -->
+    <script>
+      function redirectToDashboard(role) {
+        if(role === 'admin') {
+          alert("Redirecting to Admin Dashboard...");
+          window.location.href = "/admin-dashboard.html"; // Admin Dashboard
+        } else if(role === 'staff') {
+          alert("Redirecting to Staff Dashboard...");
+          window.location.href = "/staff-dashboard.html"; // Staff Dashboard
+        } else if(role === 'customer') {
+          alert("Redirecting to Customer Dashboard...");
+          window.location.href = "/customer-dashboard.html"; // Customer Dashboard
+        }
+      }
+    </script>
   </body>
 </html>
