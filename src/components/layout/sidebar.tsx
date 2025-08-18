@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { NavLink, useLocation } from "react-router-dom";
 import { 
   Home, 
   Bed, 
@@ -15,16 +16,18 @@ interface SidebarProps {
 }
 
 const navigation = [
-  { name: "Dashboard", href: "/", icon: Home, current: true },
-  { name: "Rooms", href: "/rooms", icon: Bed, current: false },
-  { name: "Restaurant", href: "/restaurant", icon: UtensilsCrossed, current: false },
-  { name: "Billing", href: "/billing", icon: CreditCard, current: false },
-  { name: "Staff", href: "/staff", icon: Users, current: false },
-  { name: "Analytics", href: "/analytics", icon: BarChart3, current: false },
-  { name: "Settings", href: "/settings", icon: Settings, current: false },
+  { name: "Dashboard", href: "/", icon: Home },
+  { name: "Rooms", href: "/rooms", icon: Bed },
+  { name: "Restaurant", href: "/restaurant", icon: UtensilsCrossed },
+  { name: "Billing", href: "/billing", icon: CreditCard },
+  { name: "Staff", href: "/staff", icon: Users },
+  { name: "Analytics", href: "/analytics", icon: BarChart3 },
+  { name: "Settings", href: "/settings", icon: Settings },
 ];
 
 export function Sidebar({ className }: SidebarProps) {
+  const location = useLocation();
+
   return (
     <div className={cn(
       "flex h-full w-64 flex-col bg-gradient-luxury border-r border-border/50",
@@ -39,20 +42,26 @@ export function Sidebar({ className }: SidebarProps) {
       <nav className="flex-1 space-y-2 p-4">
         {navigation.map((item) => {
           const Icon = item.icon;
+          const isActive = location.pathname === item.href;
           return (
-            <Button
+            <NavLink
               key={item.name}
-              variant={item.current ? "default" : "ghost"}
-              className={cn(
-                "w-full justify-start gap-3 h-11",
-                item.current 
-                  ? "bg-primary text-primary-foreground shadow-md" 
-                  : "text-foreground/70 hover:text-foreground hover:bg-muted/50"
-              )}
+              to={item.href}
+              className="block"
             >
-              <Icon className="h-5 w-5" />
-              {item.name}
-            </Button>
+              <Button
+                variant={isActive ? "default" : "ghost"}
+                className={cn(
+                  "w-full justify-start gap-3 h-11 transition-all duration-200",
+                  isActive 
+                    ? "bg-primary text-primary-foreground shadow-md animate-scale-in" 
+                    : "text-foreground/70 hover:text-foreground hover:bg-muted/50 hover:scale-105"
+                )}
+              >
+                <Icon className="h-5 w-5" />
+                {item.name}
+              </Button>
+            </NavLink>
           );
         })}
       </nav>

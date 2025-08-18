@@ -1,5 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useNavigate } from "react-router-dom";
+import { useToast } from "@/hooks/use-toast";
 import { 
   Plus, 
   UserPlus, 
@@ -10,30 +12,45 @@ import {
 } from "lucide-react";
 
 export function QuickActions() {
+  const navigate = useNavigate();
+  const { toast } = useToast();
+
+  const handleAction = (actionTitle: string, route: string) => {
+    navigate(route);
+    toast({
+      title: `${actionTitle} initiated`,
+      description: `Navigating to ${actionTitle.toLowerCase()} page.`,
+    });
+  };
+
   const actions = [
     {
       title: "New Reservation",
       description: "Book a room for guest",
       icon: Plus,
-      variant: "default" as const
+      variant: "default" as const,
+      route: "/rooms"
     },
     {
       title: "Check-in Guest",
       description: "Process guest arrival",
       icon: UserPlus,
-      variant: "outline" as const
+      variant: "outline" as const,
+      route: "/rooms"
     },
     {
       title: "Generate Bill",
       description: "Create guest invoice",
       icon: Receipt,
-      variant: "outline" as const
+      variant: "outline" as const,
+      route: "/billing"
     },
     {
       title: "Schedule Event",
       description: "Add to calendar",
       icon: Calendar,
-      variant: "outline" as const
+      variant: "outline" as const,
+      route: "/staff"
     }
   ];
 
@@ -53,7 +70,8 @@ export function QuickActions() {
               <Button
                 key={action.title}
                 variant={action.variant}
-                className="w-full justify-start gap-3 h-12"
+                className="w-full justify-start gap-3 h-12 transition-all duration-200 hover:scale-105"
+                onClick={() => handleAction(action.title, action.route)}
               >
                 <Icon className="h-4 w-4" />
                 <div className="text-left">
